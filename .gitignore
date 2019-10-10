@@ -1,0 +1,27 @@
+# Project exclude paths
+/compare_spark/target/
+/springboot_web/target/
+.history/
+.idea/.gitignore
+.idea/artifacts/
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/junitgenerator-prj-settings.xml
+.idea/markdown-navigator.xml
+.idea/misc.xml
+.idea/vcs.xml
+.project
+.settings/
+.vscode/
+compare_spark/.classpath
+compare_spark/.project
+compare_spark/.settings/
+datacompare.iml
+derby.log
+spark-warehouse/
+springboot_web/.classpath
+springboot_web/.factorypath
+springboot_web/.project
+springboot_web/.settings/
+springboot_web/src/main/java/com/clinbrain/datac/test/
+springboot_web/src/main/webapp/
