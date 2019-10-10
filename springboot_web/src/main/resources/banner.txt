@@ -1,0 +1,4 @@
+${AnsiColor.BRIGHT_GREEN}
+Application Version: ${fuce.version}
+Spring Boot Version: ${spring-boot.version}
+${AnsiColor.BLACK}

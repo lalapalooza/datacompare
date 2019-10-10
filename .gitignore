@@ -2,6 +2,7 @@
 /compare_spark/target/
 /springboot_web/target/
 .history/
+.idea/
 .idea/.gitignore
 .idea/artifacts/
 .idea/compiler.xml
@@ -23,5 +24,3 @@ springboot_web/.classpath
 springboot_web/.factorypath
 springboot_web/.project
 springboot_web/.settings/
-springboot_web/src/main/java/com/clinbrain/datac/test/
-springboot_web/src/main/webapp/

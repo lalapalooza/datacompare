@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.pollix.at/thymeleaf/shiro">
+<head th:replace="admin/common/html/head :: head(~{::title},~{::link},~{::style})">
+
+    <title th:text=${title}></title>
+    <!-- 这儿引用单独的css link -->
+    <link rel="stylesheet" th:href="@{static/admin/assets/js/button/ladda/ladda.min.css}">
+    <style type="text/css">
+        /**
+        *这里写单独的css样式
+        */
+        .widget-def {
+            top:0;
+            left: 0;
+        }
+        .widget-def:not(:first-child) {
+            margin-top: 20px;
+        }
+        .widget-def i {
+            left: 20px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+
+</head>
+
+<body style="padding-left: 0px !important;overflow: visible;background: fixed;">
+
+<div class="sb-right sb-active">
+    <div class="right-wrapper">
+        <div class="row">
+            <h3>
+                <span><i class="entypo-gauge"></i>&nbsp;&nbsp;<a style="color: #ffffff;" th:href="@{/pool}">系统线程池状态</a></span>
+            </h3>
+            <div class="col-lg-12">
+
+                <div class="widget-def">
+                    <b>总运行数</b>
+                    <i th:text="${count}"></i>
+                </div>
+
+                <div class="widget-def">
+                    <b>正在运行</b>
+                    <i th:text="${active}"></i>
+                </div>
+
+                <div class="widget-def">
+                    <b>等待运行</b>
+                    <i th:text="${queueCount}"></i>
+                </div>
+
+                <div class="widget-def">
+                    <b>执行成功</b>
+                    <i th:text="${complate}"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- 通用js -->
+<div th:include="admin/common/html/js :: onload_js">
+</div>
+</body>
+
+</html>

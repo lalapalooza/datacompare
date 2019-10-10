@@ -1,0 +1,469 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clinbrain.datac.mapper.auto.TableConfigMapper">
+    <resultMap id="BaseResultMap" type="com.clinbrain.datac.model.auto.TableConfig">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="task_name" property="taskName" jdbcType="VARCHAR"/>
+        <result column="source_code" property="sourceCode" jdbcType="VARCHAR"/>
+        <result column="source_table" property="sourceTable" jdbcType="VARCHAR"/>
+        <result column="source_sql" property="sourceSql" jdbcType="VARCHAR"/>
+        <result column="target_code" property="targetCode" jdbcType="VARCHAR"/>
+        <result column="target_table" property="targetTable" jdbcType="VARCHAR"/>
+        <result column="target_sql" property="targetSql" jdbcType="VARCHAR"/>
+        <result column="start_date" property="startDate" jdbcType="TIMESTAMP"/>
+        <result column="end_date" property="endDate" jdbcType="TIMESTAMP"/>
+        <result column="run_type" property="runType" jdbcType="VARCHAR"/>
+        <result column="job_type" property="jobType" jdbcType="VARCHAR"/>
+        <result column="only_count" property="onlyCount" jdbcType="VARCHAR"/>
+        <result column="range" property="range" jdbcType="INTEGER"/>
+        <result column="end_check" property="endCheck" jdbcType="INTEGER"/>
+        <result column="enable" property="enable" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <if test="jobType != null">
+                and job_type = #{jobType}
+            </if>
+            <if test="jobType != null and oredCriteria.size() gt 0">
+                and
+            </if>
+
+            <foreach collection="oredCriteria" item="criteria" separator="or" open="(" close=")">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id,task_name,source_code,source_table,source_sql,target_code,target_table,target_sql,start_date,end_date,run_type,job_type,only_count,`range`,end_check,`enable`
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.clinbrain.datac.model.auto.TableConfigExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from table_config
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from table_config
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="Integer">
+        delete
+        from table_config
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <delete id="deleteByExample" parameterType="com.clinbrain.datac.model.auto.TableConfigExample">
+        delete from table_config
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+
+    <insert id="insert" parameterType="com.clinbrain.datac.model.auto.TableConfig">
+        insert into table_config (id,
+                                  task_name,
+                                  source_code,
+                                  source_table,
+                                  source_sql,
+                                  target_code,
+                                  target_table,
+                                  target_sql,
+                                  start_date,
+                                  end_date,
+                                  run_type,
+                                  job_type,
+                                  only_count,
+                                  `range`,
+                                  end_check,
+                                  enable)
+        values (#{id,jdbcType=INTEGER},
+                #{taskName,jdbcType=VARCHAR},
+                #{sourceCode,jdbcType=VARCHAR},
+                #{sourceTable,jdbcType=VARCHAR},
+                #{sourceSql,jdbcType=VARCHAR},
+                #{targetCode,jdbcType=VARCHAR},
+                #{targetTable,jdbcType=VARCHAR},
+                #{targetSql,jdbcType=VARCHAR},
+                #{startDate,jdbcType=TIMESTAMP},
+                #{endDate,jdbcType=TIMESTAMP},
+                #{runType,jdbcType=VARCHAR},
+                #{jobType,jdbcType=VARCHAR},
+                #{onlyCount,jdbcType=VARCHAR},
+                #{range,jdbcType=INTEGER},
+                #{endCheck,jdbcType=INTEGER},
+                #{enable,jdbcType=INTEGER})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.clinbrain.datac.model.auto.TableConfig">
+        insert into table_config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+
+            <if test="id != null">
+                id,
+            </if>
+
+
+            <if test="taskName != null">
+                task_name,
+            </if>
+
+
+            <if test="sourceCode != null">
+                source_code,
+            </if>
+
+
+            <if test="sourceTable != null">
+                source_table,
+            </if>
+
+
+            <if test="sourceSql != null">
+                source_sql,
+            </if>
+
+
+            <if test="targetCode != null">
+                target_code,
+            </if>
+
+
+            <if test="targetTable != null">
+                target_table,
+            </if>
+
+
+            <if test="targetSql != null">
+                target_sql,
+            </if>
+
+
+            <if test="startDate != null">
+                start_date,
+            </if>
+
+
+            <if test="endDate != null">
+                end_date,
+            </if>
+
+
+            <if test="runType != null">
+                run_type,
+            </if>
+
+
+            <if test="jobType != null">
+                job_type,
+            </if>
+
+
+            <if test="onlyCount != null">
+                only_count,
+            </if>
+
+
+            <if test="range != null">
+                `range`,
+            </if>
+
+            <if test="endCheck != null">
+                `end_check`,
+            </if>
+
+
+            <if test="enable != null">
+                enable,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="taskName != null">
+                #{taskName,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceCode != null">
+                #{sourceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceTable != null">
+                #{sourceTable,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceSql != null">
+                #{sourceSql,jdbcType=VARCHAR},
+            </if>
+            <if test="targetCode != null">
+                #{targetCode,jdbcType=VARCHAR},
+            </if>
+            <if test="targetTable != null">
+                #{targetTable,jdbcType=VARCHAR},
+            </if>
+            <if test="targetSql != null">
+                #{targetSql,jdbcType=VARCHAR},
+            </if>
+            <if test="startDate != null">
+                #{startDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endDate != null">
+                #{endDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="runType != null">
+                #{runType,jdbcType=VARCHAR},
+            </if>
+            <if test="jobType != null">
+                #{jobType,jdbcType=VARCHAR},
+            </if>
+            <if test="onlyCount != null">
+                #{onlyCount,jdbcType=VARCHAR},
+            </if>
+            <if test="range != null">
+                #{range,jdbcType=INTEGER},
+            </if>
+            <if test="endCheck != null">
+                #{endCheck,jdbcType=INTEGER},
+            </if>
+            <if test="enable != null">
+                #{enable,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="countByExample" parameterType="com.clinbrain.datac.model.auto.TableConfigExample" resultType="Integer">
+        select count(*) from table_config
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+
+    <update id="updateByExampleSelective" parameterType="map">
+        update table_config
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=INTEGER},
+            </if>
+            <if test="record.taskName != null">
+                task_name = #{record.taskName,jdbcType=VARCHAR},
+            </if>
+            <if test="record.sourceCode != null">
+                source_code = #{record.sourceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.sourceTable != null">
+                source_table = #{record.sourceTable,jdbcType=VARCHAR},
+            </if>
+            <if test="record.sourceSql != null">
+                source_sql = #{record.sourceSql,jdbcType=VARCHAR},
+            </if>
+            <if test="record.targetCode != null">
+                target_code = #{record.targetCode,jdbcType=VARCHAR},
+            </if>
+            <if test="record.targetTable != null">
+                target_table = #{record.targetTable,jdbcType=VARCHAR},
+            </if>
+            <if test="record.targetSql != null">
+                target_sql = #{record.targetSql,jdbcType=VARCHAR},
+            </if>
+            <if test="record.startDate != null">
+                start_date = #{record.startDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.endDate != null">
+                end_date = #{record.endDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.runType != null">
+                run_type = #{record.runType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.jobType != null">
+                job_type = #{record.jobType,jdbcType=VARCHAR},
+            </if>
+            <if test="record.onlyCount != null">
+                only_count = #{record.onlyCount,jdbcType=VARCHAR},
+            </if>
+            <if test="record.range != null">
+                `range` = #{record.range,jdbcType=INTEGER},
+            </if>
+            <if test="record.endCheck != null">
+                `end_check` = #{record.endCheck,jdbcType=INTEGER},
+            </if>
+            <if test="record.enable != null">
+                enable = #{record.enable,jdbcType=INTEGER},
+            </if>
+
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+
+
+    <update id="updateByExample" parameterType="map">
+        update table_config
+        set
+        id = #{record.id,jdbcType=INTEGER},
+
+        task_name = #{record.taskName,jdbcType=VARCHAR},
+
+        source_code = #{record.sourceCode,jdbcType=VARCHAR},
+
+        source_table = #{record.sourceTable,jdbcType=VARCHAR},
+
+        source_sql = #{record.sourceSql,jdbcType=VARCHAR},
+
+        target_code = #{record.targetCode,jdbcType=VARCHAR},
+
+        target_table = #{record.targetTable,jdbcType=VARCHAR},
+
+        target_sql = #{record.targetSql,jdbcType=VARCHAR},
+
+        start_date = #{record.startDate,jdbcType=TIMESTAMP},
+
+        end_date = #{record.endDate,jdbcType=TIMESTAMP},
+
+        run_type = #{record.runType,jdbcType=VARCHAR},
+
+        job_type = #{record.jobType,jdbcType=VARCHAR},
+
+        only_count = #{record.onlyCount,jdbcType=VARCHAR},
+
+        `range` = #{record.range,jdbcType=INTEGER},
+
+        `end_check` = #{record.endCheck,jdbcType=INTEGER},
+
+        enable = #{record.enable,jdbcType=INTEGER}
+
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.clinbrain.datac.model.auto.TableConfig">
+        update table_config
+        <set>
+            <if test="taskName != null">
+                task_name = #{taskName,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceCode != null">
+                source_code = #{sourceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceTable != null">
+                source_table = #{sourceTable,jdbcType=VARCHAR},
+            </if>
+            <if test="sourceSql != null">
+                source_sql = #{sourceSql,jdbcType=VARCHAR},
+            </if>
+            <if test="targetCode != null">
+                target_code = #{targetCode,jdbcType=VARCHAR},
+            </if>
+            <if test="targetTable != null">
+                target_table = #{targetTable,jdbcType=VARCHAR},
+            </if>
+            <if test="targetSql != null">
+                target_sql = #{targetSql,jdbcType=VARCHAR},
+            </if>
+            <if test="startDate != null">
+                start_date = #{startDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endDate != null">
+                end_date = #{endDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="runType != null">
+                run_type = #{runType,jdbcType=VARCHAR},
+            </if>
+            <if test="jobType != null">
+                job_type = #{jobType,jdbcType=VARCHAR},
+            </if>
+            <if test="onlyCount != null">
+                only_count = #{onlyCount,jdbcType=VARCHAR},
+            </if>
+            <if test="range != null">
+                `range` = #{range,jdbcType=INTEGER},
+            </if>
+            <if test="endCheck != null">
+                `end_check` = #{endCheck,jdbcType=INTEGER},
+            </if>
+            <if test="enable != null">
+                `enable` = #{enable,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.clinbrain.datac.model.auto.TableConfig">
+        update table_config
+        set task_name = #{taskName,jdbcType=VARCHAR} source_code = #{sourceCode,jdbcType=VARCHAR}
+            source_table = #{sourceTable,jdbcType=VARCHAR}
+            source_sql = #{sourceSql,jdbcType=VARCHAR}
+            target_code = #{targetCode,jdbcType=VARCHAR}
+            target_table = #{targetTable,jdbcType=VARCHAR}
+            target_sql = #{targetSql,jdbcType=VARCHAR}
+            start_date = #{startDate,jdbcType=TIMESTAMP}
+            end_date = #{endDate,jdbcType=TIMESTAMP}
+            run_type = #{runType,jdbcType=VARCHAR}
+            job_type = #{jobType,jdbcType=VARCHAR}
+            only_count = #{onlyCount,jdbcType=VARCHAR} `range` = #{range,jdbcType=INTEGER} `end_check` = #{endCheck,jdbcType=INTEGER} `enable` = #{enable,jdbcType=INTEGER}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>

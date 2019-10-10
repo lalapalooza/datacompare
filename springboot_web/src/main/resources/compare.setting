@@ -1,0 +1,7 @@
+#ssh执行spark调用的机器及命令
+ssh.host=192.168.0.112
+ssh.port=22
+ssh.user=root
+ssh.password=zaq12wsx#
+ssh.sparkjar=/opt/datac/compare_spark-1.0-SNAPSHOT.jar
+ssh.command=/opt/datac/bin/run.sh

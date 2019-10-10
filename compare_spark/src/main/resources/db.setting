@@ -1,0 +1,5 @@
+## db.setting文件
+url = jdbc:mysql://192.168.6.92:3306/data-config?useSSL=false
+user = root
+pass = root
+driver = com.mysql.jdbc.Driver

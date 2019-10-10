@@ -1,0 +1,89 @@
+# 项目相关配置
+fuce:
+  #名称
+  name: Fc
+  #版本
+  version: 1.0
+  #版权年份
+  copyrightYear: 2018
+  #头像上传路径
+  profile: D:/profile/
+  #地址是否放入项目static目录，如果未Y 放入static。 profile配置失效
+  isstatic: Y
+  #开启存放静态文件夹后目录
+  isroot_dir: static/images_upload/
+  #邮件功能
+  #邮箱发送smtp
+  email_smtp: smtp.sina.com
+  #邮箱发送端口
+  email_port: 465
+  #发送邮箱登录账号
+  email_account: q111111@sina.com
+  #发送邮箱登录密码
+  email_password: f111111
+#tomcat config
+server :
+  port : 7073
+  ##项目名字配置
+  servlet :
+    context-path : /compare
+  tomcat :
+    max-threads : 128
+    min-spare-threads : 5
+    uri-encoding : UTF-8
+    #shiro 报错修改的地方
+    max-connections: 200000
+    max-http-post-size: 9000000
+spring :
+  # 环境 dev|test|prod
+  profiles :
+    active : dev
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      maxFileSize : 10MB
+        #shiro 报错修改的地方
+    max-connections: 200000
+    max-http-post-size: 9000000
+  mvc:   #静态文件
+    static-path-pattern : /static/**
+  thymeleaf:
+    model: HTML5
+    prefix: classpath:/templates/
+    suffix: .html
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  jmx:
+    default-domain: spring-compare
+  http:
+    encoding:
+      force: true
+mybatis :
+  mapperLocations : classpath*:mybatis/*/*.xml
+  executor-type : reuse
+  type-aliases-package : com.*.model
+  configuration :
+    map-underscore-to-camel-case : true
+#pagehelper分页插件
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+#pool.size
+pool:
+  size: 3
+  maxPoolSize: 6
+  queueCapacity: 1000
+  keepAliveSeconds: 18000
+
+table:
+  config:
+    ignore: true # 忽略表结构不一样的任务
+
+#ETL 数据库
+custom:
+  sql:
+    sql_etl_connection: select * from etl_connection
+    sql_etl_histable_partitions_configuration: select * from etl_histable_partitions_configuration

@@ -1,0 +1,114 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<nav th:fragment="topMenu(isribbon)">
+	<!-- 彩带 -->
+	<div th:if="${isribbon eq true}" id="awwwards" class="right black">
+		<a href="#" target="_blank">best websites of the world</a>
+	</div>
+	<!-- END彩带 -->
+	<!-- 预加载器 -->
+	<div id="preloader">
+	    <div id="status">&nbsp;</div>
+	</div>
+	<!-- 顶部导航栏 -->
+	<nav role="navigation" class="navbar navbar-static-top">
+	    <div class="container-fluid">
+	        <!-- 手机端的和切换分组，以更好的移动显示 -->
+	        <div class="navbar-header">
+	            <button data-target="#bs-example-navbar-collapse-1" data-toggle="collapse" class="navbar-toggle" type="button">
+	                <span class="entypo-menu"></span>
+	            </button>
+	            <button class="navbar-toggle toggle-menu-mobile toggle-left" type="button">
+	                <span class="entypo-list-add"></span>
+	            </button>
+	
+	
+	            <div id="logo-mobile" class="visible-xs">
+	               <h1>用户管理<span>v2</span></h1>
+	            </div>
+	
+	        </div>
+	
+	
+	        <!-- 右侧顶部-->
+	        <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
+	            <!-- 右侧顶部 日期 时间  天气预报  div-->
+	            <div id="nt-title-container" class="navbar-left running-text visible-lg" style="width: 36%;margin-left: 25%;">
+	            	<!-- 日期空间 -->
+	                <ul class="date-top">
+	                    <li class="entypo-calendar" style="margin-right:5px"></li>
+	                    <li id="Date"></li>
+	                </ul>
+	                <!--end 日期空间 -->
+		<!-- 时间DIV -->
+	                <ul id="digital-clock" class="digital" style="border-right: 0;box-shadow: 0 0 0;">
+	                    <li class="entypo-clock" style="margin-right:5px"></li>
+	                    <li class="hour"></li>
+	                    <li>:</li>
+	                    <li class="min"></li>
+	                    <li>:</li>
+	                    <li class="sec"></li>
+	                    <li class="meridiem"></li>
+	                </ul>
+	                <!--end 时间DIV -->
+	            </div>
+	<!-- end 右侧顶部 日期 时间  天气预报 -->
+
+	<!-- 右侧顶部 头像设置-->
+	            <ul style="margin-right:0;" class="nav navbar-nav navbar-right">
+	                <!-- 头像设置 -->
+	                <li>
+	                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+	                        <img alt="" class="admin-pic img-circle" th:src="@{{path}/static/admin/portraits/thumb/men/1.jpg(path=${rootPath})}"><span th:text="${'Hi,'+session.sessionUserName}"></span><b class="caret"></b>
+	                    </a>
+	                    <ul style="margin-top:14px;" role="menu" class="dropdown-setting dropdown-menu">
+	                        <li>
+	                 				<a th:href="@{{path}/Loginout(path=${rootPath})}">
+	                                <span class="entypo-basket"></span>&#160;&#160; 退出</a>
+	                        </li>
+	                    </ul>
+	                </li>
+	                <!-- END头像设置 -->
+	                <!-- 背景设置 -->
+	                <li>
+	                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+	                        <span class="icon-gear"></span>&#160;&#160;背景</a>
+	                    <ul role="menu" class="dropdown-setting dropdown-menu">
+	
+	                        <li class="theme-bg">
+	                            <div id="button-bg"></div>
+	                            <div id="button-bg2"></div>
+	   							<div id="button-bg3"></div>
+	                            <div id="button-bg5"></div>
+	                            <div id="button-bg6"></div>
+	                            <div id="button-bg7"></div>
+	                            <div id="button-bg8"></div>
+	                            <div id="button-bg9"></div>
+	                            <div id="button-bg10"></div>
+	                            <div id="button-bg11"></div>
+	                            <div id="button-bg12"></div>
+	                            <div id="button-bg13"></div>
+							 </li>
+	                    </ul>
+	                </li>
+                    <li>
+                        <a class="button btn-xs" th:href="@{{path}/login(path=${rootPath})}">
+                            <span class="icon-home"></span>&#160;&#160;主页</a>
+                    </li>
+	                <!--END 背景设置 -->
+	                
+	                <!-- 顶部右侧隐藏按钮 -->
+	                <li class="hidden-xs">
+	                    <a class="toggle-left" href="#">
+	                        <span style="font-size:20px;" class="entypo-list-add"></span>
+	                    </a>
+	                </li>
+	                <!-- END顶部右侧隐藏按钮 -->
+	            </ul>
+	            <!-- end 右侧顶部 头像设置-->
+	        </div>
+	        <!-- end 右侧顶部 -->
+	    </div>
+	</nav>
+	<!-- /结束顶部导航条 -->	
+</nav>

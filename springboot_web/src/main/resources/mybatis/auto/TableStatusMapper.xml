@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clinbrain.datac.mapper.auto.TableStatusMapper">
+    <resultMap id="BaseResultMap" type="com.clinbrain.datac.model.auto.TableStatus">
+        <result column="table_id" property="tableId" jdbcType="INTEGER"/>
+        <result column="task_name" property="taskName" jdbcType="VARCHAR"/>
+        <result column="source_code" property="sourceCode" jdbcType="VARCHAR"/>
+        <result column="source_table" property="sourceTable" jdbcType="VARCHAR"/>
+        <result column="source_sql" property="sourceSql" jdbcType="VARCHAR"/>
+        <result column="target_code" property="targetCode" jdbcType="VARCHAR"/>
+        <result column="target_table" property="targetTable" jdbcType="VARCHAR"/>
+        <result column="target_sql" property="targetSql" jdbcType="VARCHAR"/>
+        <result column="run_type" property="runType" jdbcType="VARCHAR"/>
+        <result column="job_type" property="jobType" jdbcType="VARCHAR"/>
+        <result column="only_count" property="onlyCount" jdbcType="VARCHAR"/>
+        <result column="range" property="range" jdbcType="INTEGER"/>
+        <result column="end_check" property="endCheck" jdbcType="INTEGER"/>
+        <result column="enable" property="enable" jdbcType="INTEGER"/>
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="logger_file" property="loggerFile" jdbcType="VARCHAR"/>
+        <result column="source_data" property="sourceData" jdbcType="VARCHAR"/>
+        <result column="target_data" property="targetData" jdbcType="VARCHAR"/>
+        <result column="source_batch" property="sourceBatch" jdbcType="VARCHAR"/>
+        <result column="target_batch" property="targetBatch" jdbcType="VARCHAR"/>
+        <result column="start_date" property="startDate" jdbcType="TIMESTAMP"/>
+        <result column="end_date" property="endDate" jdbcType="TIMESTAMP"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="message" property="message" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        table_id,task_name,source_code,source_table,source_sql,target_code,target_table,target_sql,run_type,job_type,only_count,`range`,end_check,`enable`,id,logger_file,source_data,target_data,source_batch,target_batch,start_date,end_date,create_date,`status`,message
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap"
+            parameterType="com.clinbrain.datac.model.auto.TableStatusExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List"/>
+        from table_status
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+
+    <select id="countByExample" parameterType="com.clinbrain.datac.model.auto.TableStatusExample" resultType="Long">
+        select count(*) from table_status
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+
+    <select id="selectTotal" resultType="Map">
+        select job_type, count(*) total,IFNULL(`enable`,0) `enable` from table_config
+        group by job_type,IFNULL(`enable`,0)
+    </select>
+
+    <select id="selectSuccessNoDiff" resultType="Map">
+        select job_type, count(*) as successCount, DATE_FORMAT(min(create_date),'%Y-%m-%d %H:%i:%s') as successMinDate
+        from table_status where `status` = 0 and message is null and (source_data is null and target_data is null)
+        group by job_type
+    </select>
+
+    <select id="selectErrorTask" resultType="Map">
+        select job_type, count(*) as errorCount, DATE_FORMAT(min(create_date),'%Y-%m-%d %H:%i:%s') as errorMinDate
+        from table_status where `status` != 0 or status is null
+        group by job_type
+    </select>
+
+    <select id="selectSuccessHasDiff" resultType="Map">
+        select job_type, count(*) as successDiffCount, DATE_FORMAT(min(create_date),'%Y-%m-%d %H:%i:%s') as successDiffMinDate
+        from table_status where `status` = 0 and message is null and (source_data is not null or target_data is not null)
+        group by job_type
+    </select>
+
+</mapper>

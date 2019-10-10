@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+	<springProperty scope="context" name="logDir" source="log.path" defaultValue="E:/logs/compare/"/>
+	<property name="log.pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{26} - [%method,%line] - %msg%n" />
+    <property name="log.dir" value="${logDir}"/>
+    <property name="log.file" value="data-compare"/>
+
+	<!-- 控制台输出 -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${log.pattern}</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+		
+	</appender>
+
+<!--     按照每天生成日志文件-->
+    <appender name="DEBUG_FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+        </filter>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>
+                ${log.pattern}
+            </pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${log.dir}/%d{yyyy-MM-dd}/${log.file}-debug.log</FileNamePattern>
+            <MaxHistory>3</MaxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- This is MDC value -->
+    <!-- We will assign a value to 'logFileName' via Java code -->
+    <appender name="THREAD_FILE" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+            <key>logFileName</key>
+            <defaultValue>data-compare-default</defaultValue>
+        </discriminator>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+        <sift>
+            <appender name="FILE-${logFileName}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <encoder>
+                    <charset>UTF-8</charset>
+                    <Pattern>
+                        ${log.pattern}
+                    </Pattern>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <FileNamePattern>${log.dir}/%d{yyyy-MM-dd}/${logFileName}.log</FileNamePattern>
+                    <MaxHistory>7</MaxHistory>
+                    <cleanHistoryOnStart>true</cleanHistoryOnStart>
+                </rollingPolicy>
+            </appender>
+        </sift>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="console" />
+    </root>
+
+    <logger name="com.clinbrain" level="DEBUG" additivity="true">
+        <appender-ref ref="THREAD_FILE" />
+    </logger>
+
+    <logger name="org.apache.ibatis" level="DEBUG" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
+
+
+</configuration>

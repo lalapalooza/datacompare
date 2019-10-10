@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.pollix.at/thymeleaf/shiro">
+<head th:replace="admin/common/html/head :: head(~{::title},~{::link},~{::style})">
+
+<title th:text=${title}></title>
+<!-- 这儿引用单独的css link -->
+<link rel="stylesheet" th:href="@{static/admin/assets/js/button/ladda/ladda.min.css}">
+<style type="text/css">
+/**
+*这里写单独的css样式
+*/
+</style>
+
+</head>
+
+<body id="listbody">
+<!-- 右边内容 -->
+<div class="wrap-fluid">
+    <div class="container-fluid paper-wrap bevel tlbr">
+        <!-- 内容 -->
+        <!--标题 通用-->
+        <div th:replace="admin/common/html/title :: title(${title},${parenttitle},${isMsg},${msgHTML})">
+        </div>
+        <!-- 结束标题 通用-->
+        <div class="content-wrap">
+            <!-- 结束内容 -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <!-- 空白页开始-->
+                    <div class="nest" id="Blank_PageClose">
+                        <div class="title-alt">
+                            <h6>初始化操作</h6>
+                            <div class="titleClose">
+                                <a class="gone" href="#Blank_PageClose">
+                                    <span class="entypo-cancel"></span>
+                                </a>
+                            </div>
+                            <div class="titleToggle">
+                                <a class="nav-toggle-alt" href="#Blank_Page_Content">
+                                    <span class="entypo-up-open"></span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="body-nest" id="Blank_Page_Content">
+                            <button class="ladda-button" data-size="xs" id="syncEtlConnection"
+                                    data-color="green" data-style="expand-left">
+                                <span class="ladda-label">同步ETL连接源</span><span class="ladda-spinner"></span></button>
+                        </div>
+                        <div class="body-nest">
+                            <input type="text" class="form-control round-input" id="cronStr" th:data-cid="${cronStr.id}" th:value="${cronStr.propertitesCron}" value="时间格式（cron）">
+                            <button class="ladda-button" data-size="xs" id="modifyCron"
+                                    data-color="green" data-style="expand-left">
+                                <span class="ladda-label">修改调度计划</span><span class="ladda-spinner"></span></button>
+                        </div>
+                    </div>
+                </div>
+                <!-- 空白页结束 -->
+            </div>
+            <!-- 结束内容 -->
+        </div>
+    </div>
+</div>
+<!-- 结束右边内容 -->
+
+
+<!-- 通用js -->
+<div th:include="admin/common/html/js :: onload_js">
+</div>
+<script type="text/javascript" th:src="@{/static/admin/assets/js/toggle_close.js}"></script>
+<!-- 右边高度控制 -->
+<script type="text/javascript" th:src="@{/static/admin/assets/js/right_hight.js}"></script>
+<script th:src="@{/static/admin/assets/js/bootstrap/js/base_list.js}" type="text/javascript"></script>
+<!-- 弹窗 -->
+<script th:src="@{/static/admin/assets/js/layer/layer.js}" type="text/javascript"></script>
+<!-- 遮罩层 -->
+<script th:src="@{/static/admin/assets/js/blockUI/jquery.blockUI.js}" type="text/javascript"></script>
+
+<script type="text/javascript" >
+    $(function(){
+        $("#syncEtlConnection").click(function(){
+            $.ajax({
+                cache : true,
+                type : "GET",
+                url : rootPath + "/connection/sync",
+                error : function(request) {
+                    $.modal.alertError("系统错误");
+                },
+                success : function(data) {
+                    $.modal.alertSuccess("同步完成！");
+                }
+            });
+        });
+        $("#modifyCron").click(function(){
+            $.ajax({
+                cache : true,
+                type : "POST",
+                data:{id:$("#cronStr").data("cid"),cron:$("#cronStr").val()},
+                url : rootPath + "/properties/update",
+                error : function(request) {
+                    $.modal.alertError("系统错误");
+                },
+                success : function(data) {
+                    $.modal.alertSuccess("修改成功！");
+                }
+            });
+        });
+
+    })
+
+</script>
+
+</body>
+
+</html>

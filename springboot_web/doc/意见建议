@@ -1,0 +1,4 @@
+1. table_config 添加一个任务标识列
+2. table_logger 添加日志文件列，方便可以实时查看日志
+3. table_config 中的source_table 和 target_table 需要trim()后使用
+4. 界面展示可以有分组显示

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.pollix.at/thymeleaf/shiro">
+<head th:replace="admin/common/html/tableHead :: head(~{::title},~{::link},~{::style})">
+
+<title th:text=${title}></title>
+<!-- 这儿引用单独的css link -->
+<!-- Ladda for Bootstrap 3按钮加载进度插件 -->
+<link rel="stylesheet" th:href="@{/static/admin/assets/js/button/ladda/ladda.min.css}">
+<!-- bootstrap-table表单样式 -->
+<link th:href="@{/static/admin/assets/js/bootstrap/css/bootstrap-table/bootstrap-table.min.css}" rel="stylesheet"/>
+<!-- 用户界面自定义css -->
+<link th:href="@{/static/admin/user/css/user-add.css}" rel="stylesheet"/>
+<style type="text/css"></style>
+</head>
+
+<body>
+
+<div class="content-wrap">
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="nest" id="elementClose">
+				<div class="">
+				</div>
+				<div class="body-nest">
+					<div class="panel-body">
+						<pre id="logPre" class="pre-scrollable" th:utext="${logs}">
+
+                        </pre>
+						<span class="pull-right">
+							<a class="btn btn-success btn-xs" href="#" onclick="refreshLog()"><i class="fa fa-refresh"></i></a>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- 通用js -->
+<div th:include="admin/common/html/js :: onload_js">
+   
+</div>
+
+<script type="text/javascript" >
+
+	function refreshLog(){
+        $.ajax({
+            cache: true,
+            type: "GET",
+            url: rootPath + "/TableLoggerController/sysLog/refresh",
+            async: false,
+            error: function (request) {
+                $.modal.alertError("系统错误");
+            },
+            success: function (data) {
+                $("#logPre").html(data);
+            }
+        });
+	}
+
+</script>
+
+</body>
+
+
+</html>

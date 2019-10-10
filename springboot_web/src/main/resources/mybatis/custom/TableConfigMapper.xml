@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.clinbrain.datac.mapper.custom.TableConfigDao" >
+
+  <resultMap id="BaseResultMap" type="com.clinbrain.datac.model.auto.TableConfig">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="task_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="source_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="source_table" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="source_sql" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="target_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="target_table" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="target_sql" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="start_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="end_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="run_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="job_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="only_count" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="range" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="enable" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    </constructor>
+  </resultMap>
+  <select id="selectAll" resultMap="BaseResultMap">
+    SELECT * from table_config where enable = 1
+  </select>
+ 
+</mapper>

@@ -1,0 +1,55 @@
+package ${package}.${moduleName};
+
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.annotations.Expose;
+import com.clinbrain.datac.common.domain.BaseObject;
+/**
+ * ${comments}
+ * 
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+public class ${className} extends BaseObject {
+
+
+	#foreach ($column in $columns)
+	
+	/**
+	 * $column.comments
+	 */
+    #if(${column.reserved})
+    @SerializedName("${column.realName}")
+    #end
+    #if(${column.primaryKey})
+    @Expose
+    #end
+	private ${column.attrType} ${column.attrname};
+	#end
+
+	
+	#foreach ($column in $columns)
+	#if($column.attrType == "String")
+	
+		public $column.attrType get${column.attrName}() {
+	        return $column.attrname;
+	    }
+	
+	    public void set${column.attrName}(${column.attrType} ${column.attrname}){
+	        this.${column.attrname} = ${column.attrname} == null ? null : ${column.attrname}.trim();
+	    }
+			
+	#else
+
+		public ${column.attrType} get${column.attrName} () {
+	        return ${column.attrname};
+	    }
+	
+	    public void set${column.attrName} (${column.attrType} ${column.attrname}) {
+	        this.${column.attrname} = ${column.attrname};
+	    }
+	 
+	#end  
+	#end
+	
+}
