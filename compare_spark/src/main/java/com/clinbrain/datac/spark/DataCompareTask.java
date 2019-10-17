@@ -102,8 +102,8 @@ public class DataCompareTask {
                 "status = ? , message = ? where id = ?";
         QueryRunner q = new QueryRunner();
         try {
-            q.execute(JdbcUtil.getConnect(),sql,sourceData == null ? null : sourceDiffCount + "|" +JSONUtil.toJsonStr(sourceData),
-                    targetData == null ? null : targetDiffCount + "|" + JSONUtil.toJsonStr(targetData),
+            q.execute(JdbcUtil.getConnect(),sql,sourceData == null || sourceData.isEmpty() ? null : sourceDiffCount + "|" +JSONUtil.toJsonStr(sourceData),
+                    targetData == null || targetData.isEmpty() ? null : targetDiffCount + "|" + JSONUtil.toJsonStr(targetData),
                     sourceDataCount,
                     targetDataCount,
                     errorMessage == null ? 0 : -1,

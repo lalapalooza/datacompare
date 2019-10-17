@@ -11,7 +11,7 @@
  Target Server Version : 50722
  File Encoding         : 65001
 
- Date: 20/09/2019 11:11:24
+ Date: 11/10/2019 14:18:03
 */
 
 SET NAMES utf8mb4;
@@ -22,13 +22,13 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_compare_propertites`;
 CREATE TABLE `t_compare_propertites`  (
-                                          `id` int(11) NOT NULL AUTO_INCREMENT,
-                                          `propertites_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-                                          `propertites_cron` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-                                          `create_time` datetime(0) NULL DEFAULT NULL,
-                                          `update_time` datetime(0) NULL DEFAULT NULL,
-                                          PRIMARY KEY (`id`) USING BTREE,
-                                          UNIQUE INDEX `propertites_key`(`propertites_name`) USING BTREE
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `propertites_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `propertites_cron` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `propertites_key`(`propertites_name`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -41,54 +41,25 @@ INSERT INTO `t_compare_propertites` VALUES (1, 'compare_propertites', '00 09 14 
 -- ----------------------------
 DROP TABLE IF EXISTS `t_connection`;
 CREATE TABLE `t_connection`  (
-                                 `connection_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-                                 `url` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                 `user` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                 `password` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                 `created_at` datetime(6) NULL DEFAULT NULL,
-                                 `updated_at` datetime(6) NULL DEFAULT NULL,
-                                 `driver` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                 PRIMARY KEY (`connection_code`) USING BTREE,
-                                 UNIQUE INDEX `inx_connection_code`(`connection_code`) USING BTREE
+  `connection_code` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `url` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `user` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `password` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `created_at` datetime(6) NULL DEFAULT NULL,
+  `updated_at` datetime(6) NULL DEFAULT NULL,
+  `driver` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`connection_code`) USING BTREE,
+  UNIQUE INDEX `inx_connection_code`(`connection_code`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '数据库连接信息' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of t_connection
--- ----------------------------
-INSERT INTO `t_connection` VALUES ('a-hbase-jim-test', 'hbase', 'root', 'root', '2019-07-15 09:38:07.313000', NULL, '');
-INSERT INTO `t_connection` VALUES ('a-hive-jim-test', 'jdbc:hive2://192.168.0.111:10000', 'root', 'root', '2019-07-15 09:38:07.444000', NULL, 'org.apache.hive.jdbc.HiveDriver');
-INSERT INTO `t_connection` VALUES ('a-oracle-jim-test', 'jdbc:oracle:thin:@192.168.0.38:1521/orcl', 'JIRA', 'JIRA', '2019-07-15 09:38:07.500000', NULL, 'oracle.jdbc.OracleDriver');
-INSERT INTO `t_connection` VALUES ('cache', 'jdbc:Cache://192.168.0.39:1972/DHC-APP', '_SYSTEM', 'SYS', '2019-07-15 09:38:07.557000', NULL, 'com.intersys.jdbc.CacheDriver');
-INSERT INTO `t_connection` VALUES ('gp', 'jdbc:pivotal:greenplum://192.168.0.113:5432;DatabaseName=testgp', 'gpadmin', 'gpadmin', '2019-07-15 09:38:07.603000', NULL, 'com.pivotal.jdbc.GreenplumDriver');
-INSERT INTO `t_connection` VALUES ('gp_cdr', 'jdbc:pivotal:greenplum://192.168.0.113:5432;DatabaseName=cdr', 'gpadmin', 'gpadmin', '2019-07-15 09:38:07.648000', NULL, 'com.pivotal.jdbc.GreenplumDriver');
-INSERT INTO `t_connection` VALUES ('gp_cdr_hx', 'jdbc:pivotal:greenplum://192.168.0.113:5432;DatabaseName=cdr_hx', 'gpadmin', 'gpadmin', '2019-07-15 09:38:07.700000', NULL, 'com.pivotal.jdbc.GreenplumDriver');
-INSERT INTO `t_connection` VALUES ('gp_student', 'jdbc:pivotal:greenplum://192.168.0.113:5432;DatabaseName=sqluser_repl', 'gpadmin', 'gpadmin', '2019-07-15 09:38:07.755000', NULL, 'com.pivotal.jdbc.GreenplumDriver');
-INSERT INTO `t_connection` VALUES ('HBASE', 'HBASE', 'root', NULL, '2019-07-15 09:38:07.814000', NULL, '');
-INSERT INTO `t_connection` VALUES ('HBASE1', 'jdbc:hive2://192.168.0.111:10000', 'root', NULL, '2019-07-15 09:38:07.865000', NULL, 'org.apache.hive.jdbc.HiveDriver');
-INSERT INTO `t_connection` VALUES ('hbase2', 'hbase2', 'root', 'rrrrrr', '2019-07-15 09:38:07.911000', NULL, '');
-INSERT INTO `t_connection` VALUES ('hive', 'jdbc:hive2://192.168.0.111:10000', 'root', 'root', '2019-07-15 09:38:07.956000', NULL, 'org.apache.hive.jdbc.HiveDriver');
-INSERT INTO `t_connection` VALUES ('hive0.111', 'jdbc:hive2://192.168.0.111:10000', 'root', 'root', '2019-07-15 09:38:08.253000', NULL, 'org.apache.hive.jdbc.HiveDriver');
-INSERT INTO `t_connection` VALUES ('hive_impala', 'jdbc:impala://192.168.0.113:21050', 'impala', 'root', '2019-07-15 09:38:08.298000', NULL, 'com.cloudera.impala.jdbc41.Driver');
-INSERT INTO `t_connection` VALUES ('impala', 'jdbc:impala://192.168.0.113:21050', 'impala', 'impala', '2019-07-15 09:38:08.344000', NULL, 'com.cloudera.impala.jdbc41.Driver');
-INSERT INTO `t_connection` VALUES ('mysql', 'jdbc:mysql://192.168.0.111:3306', 'root', 'root', '2019-07-15 09:38:08.390000', NULL, 'com.mysql.jdbc.Driver');
-INSERT INTO `t_connection` VALUES ('mysql_36', 'jdbc:mysql://192.168.0.36:3306', 'root', 'root', '2019-07-15 09:38:08.441000', NULL, 'com.mysql.jdbc.Driver');
-INSERT INTO `t_connection` VALUES ('mysql_local', 'jdbc:mysql://192.168.6.92:3306', 'root', 'root', '2019-07-15 09:38:08.492000', NULL, 'com.mysql.jdbc.Driver');
-INSERT INTO `t_connection` VALUES ('mysql_test', 'jdbc:mysql://192.168.3.28:3306', 'root', 'root', '2019-07-15 09:38:08.538000', NULL, 'com.mysql.jdbc.Driver');
-INSERT INTO `t_connection` VALUES ('ogg_oracle', 'jdbc:oracle:thin:@//192.168.69.20:1521/orcl', 'LF_HIS', 'Passw0rd', '2019-07-15 09:38:08.584000', NULL, 'oracle.jdbc.OracleDriver');
-INSERT INTO `t_connection` VALUES ('oracle_38', 'jdbc:oracle:thin:@192.168.0.38:1521:orcl', 'jira', 'jira', '2019-09-19 18:02:06.689000', NULL, 'oracle.jdbc.OracleDriver');
-INSERT INTO `t_connection` VALUES ('oracle_test', 'jdbc:oracle:thin:@192.168.0.114:1521/orcl', 'jira', 'jira', '2019-07-15 09:38:08.629000', NULL, 'oracle.jdbc.OracleDriver');
-INSERT INTO `t_connection` VALUES ('sqlserver_36', 'jdbc:sqlserver://192.168.0.36:1433', 'sa', 'P@ssw0rd', '2019-09-19 18:02:06.740000', NULL, 'com.microsoft.sqlserver.jdbc.SQLServerDriver');
-INSERT INTO `t_connection` VALUES ('sqlserver_test', 'jdbc:sqlserver://192.168.0.115:1433', 'sa', 'zaq12wsx#', '2019-07-15 09:38:08.675000', NULL, 'com.microsoft.sqlserver.jdbc.SQLServerDriver');
-INSERT INTO `t_connection` VALUES ('ssh_0.111', '192.168.0.111:22', 'root', 'zaq12wsx$', '2019-07-15 09:38:08.721000', NULL, '');
 
 -- ----------------------------
 -- Table structure for t_sys_datas
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_datas`;
 CREATE TABLE `t_sys_datas`  (
-                                `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-                                `file_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
-                                PRIMARY KEY (`id`) USING BTREE
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `file_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '文件表存储表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -101,14 +72,14 @@ INSERT INTO `t_sys_datas` VALUES ('595007521958133760', 'static/images_upload/b1
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_email`;
 CREATE TABLE `t_sys_email`  (
-                                `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '主键',
-                                `receivers_email` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '接收人电子邮件',
-                                `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '邮件标题',
-                                `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '内容',
-                                `send_user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '发送人id',
-                                `send_user_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '发送人账号',
-                                `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-                                PRIMARY KEY (`id`) USING BTREE
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '主键',
+  `receivers_email` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '接收人电子邮件',
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '邮件标题',
+  `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '内容',
+  `send_user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '发送人id',
+  `send_user_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '发送人账号',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '电子邮件' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -123,15 +94,15 @@ INSERT INTO `t_sys_email` VALUES ('595007558129811456', '87766867@qq.com', '呱�
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_file`;
 CREATE TABLE `t_sys_file`  (
-                               `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '主键',
-                               `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '图片名字',
-                               `create_user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '创建人id',
-                               `create_user_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '创建人名字',
-                               `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-                               `update_user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '修改人',
-                               `update_user_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '修改人名字',
-                               `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
-                               PRIMARY KEY (`id`) USING BTREE
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT '主键',
+  `file_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '图片名字',
+  `create_user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '创建人id',
+  `create_user_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '创建人名字',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '修改人',
+  `update_user_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '修改人名字',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '文件信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -145,10 +116,10 @@ INSERT INTO `t_sys_file` VALUES ('595007522008465408', '百度富文本上传', 
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_file_data`;
 CREATE TABLE `t_sys_file_data`  (
-                                    `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-                                    `data_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
-                                    `file_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '文件id',
-                                    PRIMARY KEY (`id`) USING BTREE
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `data_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
+  `file_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT '文件id',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '文件数据外键绑定表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -161,77 +132,27 @@ INSERT INTO `t_sys_file_data` VALUES ('595007522008465408', '595007521958133760'
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_oper_log`;
 CREATE TABLE `t_sys_oper_log`  (
-                                   `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-                                   `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '标题',
-                                   `method` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '方法',
-                                   `oper_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '操作人',
-                                   `oper_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'url',
-                                   `oper_param` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '参数',
-                                   `error_msg` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
-                                   `oper_time` date NULL DEFAULT NULL COMMENT '操作时间',
-                                   PRIMARY KEY (`id`) USING BTREE
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '标题',
+  `method` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '方法',
+  `oper_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '操作人',
+  `oper_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT 'url',
+  `oper_param` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL COMMENT '参数',
+  `error_msg` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NULL DEFAULT NULL,
+  `oper_time` date NULL DEFAULT NULL COMMENT '操作时间',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '日志记录表' ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Records of t_sys_oper_log
--- ----------------------------
-INSERT INTO `t_sys_oper_log` VALUES ('595006721877868544', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-06-30');
-INSERT INTO `t_sys_oper_log` VALUES ('595007464991096832', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-06-30');
-INSERT INTO `t_sys_oper_log` VALUES ('595007483563474944', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-06-30');
-INSERT INTO `t_sys_oper_log` VALUES ('595007490660237312', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-06-30');
-INSERT INTO `t_sys_oper_log` VALUES ('595040139214848000', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-06-30');
-INSERT INTO `t_sys_oper_log` VALUES ('595040974183333888', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-01');
-INSERT INTO `t_sys_oper_log` VALUES ('595041715522371584', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-01');
-INSERT INTO `t_sys_oper_log` VALUES ('595042140849963008', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-01');
-INSERT INTO `t_sys_oper_log` VALUES ('595042463626821632', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-01');
-INSERT INTO `t_sys_oper_log` VALUES ('595042483801423872', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-01');
-INSERT INTO `t_sys_oper_log` VALUES ('595042914216706048', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-01');
-INSERT INTO `t_sys_oper_log` VALUES ('595046005259370496', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-01');
-INSERT INTO `t_sys_oper_log` VALUES ('595054071166009344', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-01');
-INSERT INTO `t_sys_oper_log` VALUES ('595054971544666112', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-01');
-INSERT INTO `t_sys_oper_log` VALUES ('595928580907597824', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-03');
-INSERT INTO `t_sys_oper_log` VALUES ('595928655952084992', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"username\":[\"1\"],\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-03');
-INSERT INTO `t_sys_oper_log` VALUES ('595928671135465472', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"username\":[\"\"],\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-03');
-INSERT INTO `t_sys_oper_log` VALUES ('595928709068750848', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"username\":[\"ad\"],\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-03');
-INSERT INTO `t_sys_oper_log` VALUES ('595928709605621760', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"username\":[\"ad\"],\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-03');
-INSERT INTO `t_sys_oper_log` VALUES ('595928726709993472', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"username\":[\"\"],\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-03');
-INSERT INTO `t_sys_oper_log` VALUES ('596047724508348416', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-03');
-INSERT INTO `t_sys_oper_log` VALUES ('596280514092990464', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-04');
-INSERT INTO `t_sys_oper_log` VALUES ('596280652286918656', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-04');
-INSERT INTO `t_sys_oper_log` VALUES ('596280798307418112', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-04');
-INSERT INTO `t_sys_oper_log` VALUES ('596282719575474176', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-04');
-INSERT INTO `t_sys_oper_log` VALUES ('597852717653688320', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-08');
-INSERT INTO `t_sys_oper_log` VALUES ('598826559536627712', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-11');
-INSERT INTO `t_sys_oper_log` VALUES ('598836357174919168', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-11');
-INSERT INTO `t_sys_oper_log` VALUES ('598836422836748288', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-11');
-INSERT INTO `t_sys_oper_log` VALUES ('605362083202072576', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-29');
-INSERT INTO `t_sys_oper_log` VALUES ('605366691433545728', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-29');
-INSERT INTO `t_sys_oper_log` VALUES ('605405597512237056', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-29');
-INSERT INTO `t_sys_oper_log` VALUES ('605405634812182528', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-29');
-INSERT INTO `t_sys_oper_log` VALUES ('605407211165843456', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-29');
-INSERT INTO `t_sys_oper_log` VALUES ('605428351506579456', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-29');
-INSERT INTO `t_sys_oper_log` VALUES ('605428362499850240', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-29');
-INSERT INTO `t_sys_oper_log` VALUES ('605428372314521600', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-29');
-INSERT INTO `t_sys_oper_log` VALUES ('605428450798338048', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-29');
-INSERT INTO `t_sys_oper_log` VALUES ('605428556113117184', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"]}', NULL, '2019-07-29');
-INSERT INTO `t_sys_oper_log` VALUES ('606123645290414080', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"],\"sortOrder\":[\"asc\"],\"searchText\":[\"\"]}', NULL, '2019-07-31');
-INSERT INTO `t_sys_oper_log` VALUES ('606123926518497280', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"],\"sortOrder\":[\"asc\"],\"searchText\":[\"a\"]}', NULL, '2019-07-31');
-INSERT INTO `t_sys_oper_log` VALUES ('606123936702267392', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"],\"sortOrder\":[\"asc\"],\"searchText\":[\"ass\"]}', NULL, '2019-07-31');
-INSERT INTO `t_sys_oper_log` VALUES ('606123946147840000', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"],\"sortOrder\":[\"asc\"],\"searchText\":[\"\"]}', NULL, '2019-07-31');
-INSERT INTO `t_sys_oper_log` VALUES ('606124182844997632', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"],\"sortOrder\":[\"asc\"],\"searchText\":[\"\"]}', NULL, '2019-07-31');
-INSERT INTO `t_sys_oper_log` VALUES ('606127690092642304', '用户集合查询', 'com.fc.test.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"],\"sortOrder\":[\"asc\"],\"searchText\":[\"\"]}', NULL, '2019-07-31');
-INSERT INTO `t_sys_oper_log` VALUES ('624303558379962368', '用户集合查询', 'com.clinbrain.datac.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"],\"sortName\":[\"roleSort\"],\"sortOrder\":[\"asc\"],\"searchText\":[\"\"]}', NULL, '2019-09-19');
-INSERT INTO `t_sys_oper_log` VALUES ('624304288163692544', '用户集合查询', 'com.clinbrain.datac.controller.admin.UserController.list()', 'admin', '/compare/UserController/list', '{\"pageSize\":[\"10\"],\"pageNum\":[\"1\"],\"sortName\":[\"roleSort\"],\"sortOrder\":[\"asc\"],\"searchText\":[\"\"]}', NULL, '2019-09-19');
 
 -- ----------------------------
 -- Table structure for t_sys_permission_role
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_permission_role`;
 CREATE TABLE `t_sys_permission_role`  (
-                                          `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-                                          `role_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色id',
-                                          `permission_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限id',
-                                          PRIMARY KEY (`id`) USING BTREE
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `role_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色id',
+  `permission_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限id',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色权限中间表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -301,17 +222,17 @@ INSERT INTO `t_sys_permission_role` VALUES ('fbe7e8cf-a43f-49f3-80c4-0ba1e85d717
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_premission`;
 CREATE TABLE `t_sys_premission`  (
-                                     `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'id',
-                                     `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限名称',
-                                     `descripion` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限描述',
-                                     `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '授权链接',
-                                     `is_blank` int(255) NULL DEFAULT 0 COMMENT '是否跳转 0 不跳转 1跳转',
-                                     `pid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '父节点id',
-                                     `perms` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限标识',
-                                     `type` int(11) NULL DEFAULT NULL COMMENT '类型   0：目录   1：菜单   2：按钮',
-                                     `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单图标',
-                                     `order_num` int(11) NULL DEFAULT NULL COMMENT '排序',
-                                     PRIMARY KEY (`id`) USING BTREE
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'id',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限名称',
+  `descripion` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限描述',
+  `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '授权链接',
+  `is_blank` int(255) NULL DEFAULT 0 COMMENT '是否跳转 0 不跳转 1跳转',
+  `pid` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '父节点id',
+  `perms` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '权限标识',
+  `type` int(11) NULL DEFAULT NULL COMMENT '类型   0：目录   1：菜单   2：按钮',
+  `icon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '菜单图标',
+  `order_num` int(11) NULL DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -379,9 +300,9 @@ INSERT INTO `t_sys_premission` VALUES ('9', '角色管理', '角色展示', '/Ro
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_role`;
 CREATE TABLE `t_sys_role`  (
-                               `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'id',
-                               `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色名称',
-                               PRIMARY KEY (`id`) USING BTREE
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'id',
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色名称',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '角色表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -396,10 +317,10 @@ INSERT INTO `t_sys_role` VALUES ('488305788310257664', '能修改用户密码角
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_role_user`;
 CREATE TABLE `t_sys_role_user`  (
-                                    `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-                                    `sys_user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT 'ç”¨æˆ·id',
-                                    `sys_role_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色id',
-                                    PRIMARY KEY (`id`) USING BTREE
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `sys_user_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户Id',
+  `sys_role_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '角色id',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '用户角色中间表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -413,10 +334,10 @@ INSERT INTO `t_sys_role_user` VALUES ('598836411377909760', '1', '48824325616173
 -- ----------------------------
 DROP TABLE IF EXISTS `t_sys_user`;
 CREATE TABLE `t_sys_user`  (
-                               `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-                               `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户账号',
-                               `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户密码',
-                               PRIMARY KEY (`id`) USING BTREE
+  `id` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户账号',
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户密码',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_bin COMMENT = '用户表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -429,44 +350,55 @@ INSERT INTO `t_sys_user` VALUES ('1', 'admin', '21232f297a57a5a743894a0e4a801fc3
 -- ----------------------------
 DROP TABLE IF EXISTS `table_config`;
 CREATE TABLE `table_config`  (
-                                 `id` int(11) NOT NULL AUTO_INCREMENT,
-                                 `task_name` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                 `source_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '源数据源',
-                                 `source_table` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                 `source_sql` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-                                 `target_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '目标数据源',
-                                 `target_table` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                 `target_sql` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-                                 `start_date` datetime(0) NULL DEFAULT NULL,
-                                 `end_date` datetime(0) NULL DEFAULT NULL,
-                                 `run_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '增量 / 全量 0:增量，有时间列会增加时间列条件:2:全量，1：区间',
-                                 `job_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务类型， oralce->hive, hive->gp',
-                                 `only_count` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '只统计数据量/ 比对列值 1：只要count值 2:需要比对列值',
-                                 `range` int(11) NULL DEFAULT NULL COMMENT '统计的时间范围，用当前时间减去这个值的时间作为开始时间',
-                                 `enable` int(1) NULL DEFAULT NULL COMMENT '是否可用',
-                                 `end_check` int(1) NULL DEFAULT NULL COMMENT '结束时间的间隔',
-                                 PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `task_name` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `source_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '源数据源',
+  `source_table` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `source_sql` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `target_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '目标数据源',
+  `target_table` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `target_sql` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `start_date` datetime(0) NULL DEFAULT NULL,
+  `end_date` datetime(0) NULL DEFAULT NULL,
+  `run_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '增量 / 全量 0:增量，有时间列会增加时间列条件:2:全量，1：区间',
+  `job_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '任务类型， oralce->hive, hive->gp',
+  `only_count` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '只统计数据量/ 比对列值 1：只要count值 2:需要比对列值',
+  `range` int(11) NULL DEFAULT NULL COMMENT '统计的时间范围，用当前时间减去这个值的时间作为开始时间',
+  `enable` int(1) NULL DEFAULT NULL COMMENT '是否可用',
+  `end_check` int(1) NULL DEFAULT NULL COMMENT '结束时间的间隔',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of table_config
+-- ----------------------------
+INSERT INTO `table_config` VALUES (1, '444', 'a-oracle-jim-test', 'Jira.Jiraissue', NULL, 'hive_impala', 'stest.jiraissue', NULL, '2019-07-02 15:38:35', NULL, '2', '1', '2', 7, 1, NULL);
+INSERT INTO `table_config` VALUES (2, '3', 'sqlserver_test', 'test.dbo.person', NULL, 'mysql', 'test.ogg_test2', NULL, NULL, NULL, '0', '2', '2', 2, 0, NULL);
+INSERT INTO `table_config` VALUES (3, '5', 'oracle_test', 'jira.ogg_test3', NULL, 'mysql', 'test.ogg_test', NULL, NULL, NULL, '0', '2', '2', 2, 0, NULL);
+INSERT INTO `table_config` VALUES (4, '3', 'mysql', 'test.ogg_test2', NULL, 'mysql', 'test.ogg_test3', NULL, NULL, NULL, '2', '2', '2', NULL, 0, NULL);
+INSERT INTO `table_config` VALUES (5, '5', 'mysql_local', 'stest.table3', NULL, 'mysql_local', 'stest.table4', NULL, NULL, NULL, '0', '1', '2', NULL, NULL, 1);
+INSERT INTO `table_config` VALUES (6, '测试', 'impala', 'demo_repl.vw_zy_brfymxk', 'select rtrim(fymx.xh) as serialno from demo_repl.vw_zy_brfymxk fymx  inner JOIN demo_repl.vw_zy_brjsk js  ON fymx.jsxh = js.xh where js.jsrq>=\'20161101\'', 'demo_gp', 'public.ab_ip_feelist', 'select serialno from public.ab_ip_feelist where  chargedate>\'2016-11-01\'', NULL, NULL, '0', '2', '2', 2, NULL, 1);
+INSERT INTO `table_config` VALUES (7, 'ORACLE-HIVE-check', 'demo-oracle', 'demo.gh_nghzdk_1', 'select xh,ghrq from demo.gh_nghzdk_1 WHERE ghrq BETWEEN to_char(to_date(\'{1}\',\'yyyy-mm-dd\'),\'yyyymmdd\') And to_char(to_date(\'{2}\',\'yyyy-mm-dd\'),\'yyyymmdd\')', 'impala', 'demo_repl.gh_nghzdk_1', 'select xh,ghrq from demo_repl.gh_nghzdk_1 WHERE ghrq BETWEEN concat(substr(\'{1}\',1,4),substr(\'{1}\',6,2),substr(\'{1}\',9,2)) And concat(substr(\'{2}\',1,4),substr(\'{2}\',6,2),substr(\'{2}\',9,2))', NULL, NULL, '0', '2', '2', 5, NULL, 1);
 
 -- ----------------------------
 -- Table structure for table_logger
 -- ----------------------------
 DROP TABLE IF EXISTS `table_logger`;
 CREATE TABLE `table_logger`  (
-                                 `id` int(11) NOT NULL AUTO_INCREMENT,
-                                 `logger_file` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                 `table_id` int(11) NULL DEFAULT NULL,
-                                 `source_data` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-                                 `target_data` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-                                 `source_batch` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                 `target_batch` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-                                 `start_date` datetime(0) NULL DEFAULT NULL,
-                                 `end_date` datetime(0) NULL DEFAULT NULL,
-                                 `create_date` datetime(0) NULL DEFAULT NULL,
-                                 `status` int(2) NULL DEFAULT NULL COMMENT '状态字段： 0  成功， -1 失败',
-                                 `message` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '其他信息',
-                                 PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 46 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `logger_file` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `table_id` int(11) NULL DEFAULT NULL,
+  `source_data` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `target_data` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `source_batch` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `target_batch` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `start_date` datetime(0) NULL DEFAULT NULL,
+  `end_date` datetime(0) NULL DEFAULT NULL,
+  `create_date` datetime(0) NULL DEFAULT NULL,
+  `status` int(2) NULL DEFAULT NULL COMMENT '状态字段： 0  成功， -1 失败',
+  `message` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '其他信息',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- View structure for table_status

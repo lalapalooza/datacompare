@@ -157,7 +157,6 @@ public abstract class AbstractCompareThread implements Runnable {
             sourceTable.setQuery(tempSql);
             sourceTable.setQueryAll(tempSql);
             sourceTable.setQueryCount(tempSql);
-            table.setOnlyCount(JobConstants.OnlyCount.COUNT_PRI.getCode());
         }
         if (StringUtils.isNotEmpty(table.getTargetSql())) {
             String tempSql = StringUtils.messageFormat(table.getTargetSql(),
@@ -166,7 +165,6 @@ public abstract class AbstractCompareThread implements Runnable {
             targetTable.setQuery(tempSql);
             targetTable.setQueryAll(tempSql);
             targetTable.setQueryCount(tempSql);
-            table.setOnlyCount(JobConstants.OnlyCount.COUNT_PRI.getCode());
         }
 
         LOG.info("#######初始化成功#######");
@@ -193,7 +191,16 @@ public abstract class AbstractCompareThread implements Runnable {
                 result = null;
             }
             Class<? extends BaseCompare> compareClass = CompareTaskFactory.getCompareTask(table.getOnlyCount());
-            result = taskRun(sourceTable.getQueryCount(), targetTable.getQueryCount(), compareClass);
+            String sourceQuery = sourceTable.getQuery();
+            String targetQuery = targetTable.getQuery();
+            if (JobConstants.OnlyCount.COUNT.getCode().equalsIgnoreCase(table.getOnlyCount())) {
+                sourceQuery = sourceTable.getQueryCount();
+                targetQuery = targetTable.getQueryCount();
+            } else if (JobConstants.OnlyCount.COUNT_DETAIL.getCode().equalsIgnoreCase(table.getOnlyCount())){
+                sourceQuery = sourceTable.getQueryAll();
+                targetQuery = targetTable.getQueryAll();
+            }
+            result = taskRun(sourceQuery, targetQuery, compareClass);
         } catch (Exception e) {
             LOG.error("任务执行失败", e);
             errMsg = ExceptionUtils.getFullStackTrace(e);

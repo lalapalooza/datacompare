@@ -2,7 +2,7 @@
 spring :
   datasource :
       driverClassName : com.mysql.jdbc.Driver
-      url : jdbc:mysql://192.168.0.111:3306/data-config?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
+      url : jdbc:mysql://172.20.1.101:3306/data-config?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
       username : root
       password : root
       hikari:
@@ -47,7 +47,7 @@ custom:
   datasource:
     ds1:
       driver-class-name: com.mysql.jdbc.Driver
-      url: jdbc:mysql://192.168.0.111:3306/clb_dip_metadata_test_version?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
+      url: jdbc:mysql://172.20.1.101:3306/clb_dip_metadata?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&useSSL=false
       username: root
       password: root
 log:

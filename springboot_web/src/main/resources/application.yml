@@ -23,7 +23,7 @@ fuce:
   email_password: f111111
 #tomcat config
 server :
-  port : 7073
+  port : 7076
   ##项目名字配置
   servlet :
     context-path : /compare
@@ -74,7 +74,7 @@ pagehelper:
 #pool.size
 pool:
   size: 3
-  maxPoolSize: 6
+  maxPoolSize: 3
   queueCapacity: 1000
   keepAliveSeconds: 18000
 

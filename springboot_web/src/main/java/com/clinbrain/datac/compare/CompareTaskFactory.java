@@ -11,7 +11,7 @@ public class CompareTaskFactory {
         } else if (JobConstants.OnlyCount.COUNT_DETAIL.getCode().equalsIgnoreCase(onlyCount)){
             return CompareColumnsReturnSpark.class;
         } else {
-            return CompareColumnsReturnSpark.class;
+            return CompareColumnsReturnMap.class;
         }
     }
 }
