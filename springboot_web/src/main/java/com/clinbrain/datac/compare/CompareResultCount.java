@@ -103,4 +103,9 @@ public class CompareResultCount implements CompareResult<Long> {
     public int getRightSize() {
         return Long.valueOf(this.right).intValue();
     }
+
+    @Override
+    public JobConstants.ExecStrategy getType() {
+        return JobConstants.ExecStrategy.COUNT;
+    }
 }

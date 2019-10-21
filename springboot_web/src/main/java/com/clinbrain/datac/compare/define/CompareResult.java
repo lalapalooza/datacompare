@@ -1,5 +1,6 @@
 package com.clinbrain.datac.compare.define;
 
+import com.clinbrain.datac.compare.JobConstants;
 import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
@@ -28,5 +29,7 @@ public interface CompareResult<R> {
     boolean isSameSize() ;
 
     void clear();
+
+    public JobConstants.ExecStrategy getType();
 
 }

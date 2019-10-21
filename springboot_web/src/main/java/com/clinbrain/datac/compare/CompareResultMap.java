@@ -127,4 +127,9 @@ public class CompareResultMap implements CompareResult {
     public int getRightSize() {
         return nullSizeTo(this.right);
     }
+
+    @Override
+    public JobConstants.ExecStrategy getType() {
+        return JobConstants.ExecStrategy.COUNT_PRI;
+    }
 }

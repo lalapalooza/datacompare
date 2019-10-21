@@ -113,4 +113,8 @@ public class CompareResultList implements CompareResult<List> {
         return (StringUtils.isEmpty(this.getlMessage()) && StringUtils.isEmpty(this.getrMessage())) ;
     }
 
+    @Override
+    public JobConstants.ExecStrategy getType() {
+        return JobConstants.ExecStrategy.COUNT_PRI;
+    }
 }

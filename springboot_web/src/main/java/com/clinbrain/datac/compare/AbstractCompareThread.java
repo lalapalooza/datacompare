@@ -193,10 +193,10 @@ public abstract class AbstractCompareThread implements Runnable {
             Class<? extends BaseCompare> compareClass = CompareTaskFactory.getCompareTask(table.getOnlyCount());
             String sourceQuery = sourceTable.getQuery();
             String targetQuery = targetTable.getQuery();
-            if (JobConstants.OnlyCount.COUNT.getCode().equalsIgnoreCase(table.getOnlyCount())) {
+            if (JobConstants.ExecStrategy.COUNT.getCode().equalsIgnoreCase(table.getOnlyCount())) {
                 sourceQuery = sourceTable.getQueryCount();
                 targetQuery = targetTable.getQueryCount();
-            } else if (JobConstants.OnlyCount.COUNT_DETAIL.getCode().equalsIgnoreCase(table.getOnlyCount())){
+            } else if (JobConstants.ExecStrategy.COUNT_DETAIL.getCode().equalsIgnoreCase(table.getOnlyCount())){
                 sourceQuery = sourceTable.getQueryAll();
                 targetQuery = targetTable.getQueryAll();
             }
@@ -267,18 +267,29 @@ public abstract class AbstractCompareThread implements Runnable {
             String sourceData = null;
             String targetData = null;
             if(status > -1) {
-                Pair<List, List> listPair = result.leftCompareRight();
-                List left = listPair.getLeft();
-                List right = listPair.getRight();
+                if(result.getType().equals(JobConstants.ExecStrategy.COUNT)) {
+                    int leftDiffCount = result.getLeftSize() - result.getRightSize();
+                    int rightDiffCount = result.getRightSize() - result.getLeftSize();
+                    if(leftDiffCount != 0) {
+                        sourceData = leftDiffCount + "|[]";
+                    }
+                    if(rightDiffCount != 0) {
+                        targetData = rightDiffCount + "|[]";
+                    }
+                }else {
+                    Pair<List, List> listPair = result.leftCompareRight();
+                    List left = listPair.getLeft();
+                    List right = listPair.getRight();
 
-                if (left.size() > 0) {
-                    sourceData = left.size() + "|" + (left.size() > 20000 ? GSON.toJson(left.subList(0, 100)) : GSON.toJson(left));
-                }
+                    if (left.size() > 0) {
+                        sourceData = left.size() + "|" + (left.size() > 20000 ? GSON.toJson(left.subList(0, 100)) : GSON.toJson(left));
+                    }
 
-                if (right.size() > 0) {
-                    targetData = right.size() + "|" + (right.size() > 20000 ? GSON.toJson(right.subList(0, 100)) : GSON.toJson(right));
+                    if (right.size() > 0) {
+                        targetData = right.size() + "|" + (right.size() > 20000 ? GSON.toJson(right.subList(0, 100)) : GSON.toJson(right));
+                    }
+                    LOG.info("===> "+table.getSourceTable() + " / " + table.getTargetTable() + ", 数据比对完成(差异)：源：" + left.size() + " 目标：" + right.size());
                 }
-                LOG.info("===> "+table.getSourceTable() + " / " + table.getTargetTable() + ", 数据比对完成(差异)：源：" + left.size() + " 目标：" + right.size());
             }
 
             tableLoggerWithBLOBs.setSourceBatch(String.valueOf(lSize));

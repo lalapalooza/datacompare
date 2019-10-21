@@ -42,11 +42,11 @@ public class JobConstants {
      * 3： 计算所有列的值
      * PS: 如果设置的自定义查询sql，则没有这些策略的区别，统一使用自定义做查询
      */
-    public enum OnlyCount {
+    public enum ExecStrategy {
         COUNT(1), COUNT_DETAIL(3), COUNT_PRI(2);
 
         private Integer code;
-        OnlyCount(int code) {this.code = code;}
+        ExecStrategy(int code) {this.code = code;}
 
         public String getCode(){
             return String.valueOf(code);

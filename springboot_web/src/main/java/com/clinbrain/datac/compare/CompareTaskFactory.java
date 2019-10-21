@@ -6,9 +6,9 @@ package com.clinbrain.datac.compare;
 public class CompareTaskFactory {
 
     public static Class<? extends BaseCompare> getCompareTask(String onlyCount) {
-        if (JobConstants.OnlyCount.COUNT.getCode().equalsIgnoreCase(onlyCount)) {
+        if (JobConstants.ExecStrategy.COUNT.getCode().equalsIgnoreCase(onlyCount)) {
             return CompareColumnsReturnCount.class;
-        } else if (JobConstants.OnlyCount.COUNT_DETAIL.getCode().equalsIgnoreCase(onlyCount)){
+        } else if (JobConstants.ExecStrategy.COUNT_DETAIL.getCode().equalsIgnoreCase(onlyCount)){
             return CompareColumnsReturnSpark.class;
         } else {
             return CompareColumnsReturnMap.class;
