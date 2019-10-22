@@ -9,17 +9,16 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 	<artifactId>springboot_web</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>springboot_web</name>
-	<description>data validate project for Spring Boot</description>
 
 	<dependencies>
 		<!-- SpringBoot Web容器 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
+        </dependency>
 		<!-- SpringBoot集成mybatis框架 -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
@@ -106,14 +105,6 @@
 			<version>${commons.fileupload.version}</version>
 		</dependency>
 
-
-		<!-- 热部署 -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<optional>true</optional>
-		</dependency>
-
 		<!-- google验证码 -->
 		<dependency>
 			<groupId>com.github.penggle</groupId>
@@ -194,7 +185,12 @@
         <finalName>compare</finalName>
 
 		<plugins>
-			<!-- JUnit 配置 -->
+            <plugin>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
+            </plugin>
+
+            <!-- JUnit 配置 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 	 			<artifactId>maven-surefire-plugin</artifactId>
@@ -224,22 +220,9 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			<!-- jar运行配置 -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <fork>true</fork>
-                    <mainClass>com.clinbrain.datac.SpringbootStart</mainClass>
-                    <layout>ZIP</layout>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
 			</plugin>
 		</plugins>
 	</build>
