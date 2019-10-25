@@ -1,16 +1,21 @@
 package com.clinbrain.datac.compare;
 
+import cn.hutool.extra.ssh.JschUtil;
 import cn.hutool.setting.Setting;
 import com.clinbrain.datac.compare.define.CompareResult;
 import com.clinbrain.datac.util.SSHClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.nio.charset.Charset;
+
 /**
  * Created by Liaopan on 2019/7/17.
  */
 public class CompareColumnsReturnSpark extends BaseCompare {
     private static final Logger LOG = LoggerFactory.getLogger(CompareColumnsReturnSpark.class);
+
+    private static final String SPECIFIC_SYMBOL = "[!#$\"\\\\]";
 
     @Override
     public CompareResult compare(String sourceQuery, String targetQuery) throws Exception {
@@ -32,8 +37,8 @@ public class CompareColumnsReturnSpark extends BaseCompare {
                 targetConfig.getDriver() + "~" + "tableName" + "~" +
                 targetQuery + "~" + targetConfig.getUser() + "~" +
                 targetConfig.getPassword();
-        String commandParams = "\"" + sourceBuilder.replaceAll("\"", "\\\"") + "\" \"" +
-                targetBuilder.replaceAll("\"", "\\\"") + "\" " + loggerId;
+        String commandParams = "\"" + replaceShellSymbol(sourceBuilder) + "\" \"" +
+                replaceShellSymbol(targetBuilder) + "\" " + loggerId;
         LOG.info("连接远程SSH机器执行: [" + setting.getStr("ssh.user") + ":" +
                 setting.getStr("ssh.password") + "@" + setting.getStr("ssh.host") + ":"
                 + setting.getInt("ssh.port") + "");
@@ -42,6 +47,7 @@ public class CompareColumnsReturnSpark extends BaseCompare {
         SSHClient sshClient = new SSHClient(setting.getStr("ssh.host"),
                 setting.getInt("ssh.port"), setting.getStr("ssh.user"),
                 setting.getStr("ssh.password"));
+
         new Thread(() -> {
             try {
                 sshClient.execCommand(command + " " + commandParams);
@@ -51,5 +57,15 @@ public class CompareColumnsReturnSpark extends BaseCompare {
             }
         }).start();
         return null;
+    }
+
+    /**
+     *  这里转义参数中的特殊字符，
+     *  添加这么多\ 是因为要转义shell的参数和 spark 的参数都对`引号有特殊处理的问题
+     * @param str
+     * @return
+     */
+    private String replaceShellSymbol(String str) {
+        return str.replaceAll(SPECIFIC_SYMBOL,"…\\\\$0").replaceAll("`","\\\\\\\\\\\\`");
     }
 }

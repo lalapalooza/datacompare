@@ -34,6 +34,8 @@ public class DataCompareTask {
             id = Long.parseLong(args[2]);
             updateStatus(id);
         }
+        source = source.replaceAll("…\\\\","").replaceAll("…","");
+        target = target.replaceAll("…\\\\","").replaceAll("…","");
         System.out.println("source:" + source);
         System.out.println("target:" + target);
 
@@ -45,7 +47,7 @@ public class DataCompareTask {
         List<String> targetList = null;
 
         SparkSession sparkSession = SparkSession.builder()
-                //.master("local[*]")
+//                .master("local[*]")
                 .appName("data-compare sql query")
                 .config("spark.sql.broadcastTimeout", "36000")
                 .getOrCreate();
