@@ -502,19 +502,28 @@
 
     function showData(t) {
         var value = $(t).data("val");
-        var content = value.substring(value.indexOf("|") + 1, value.length);
+        var content = value.substring(value.indexOf("|")+1,value.length);
         var column = [];
         var jsonData = [];
-        try {
-            jsonData = JSON.parse(content);
-            for (var key in jsonData[0]) {
+        try{
+            var tempData = jsonData = JSON.parse(content);
+            var firstData = tempData[0];
+            if(typeof(firstData) == 'string') {
+                firstData = JSON.parse(tempData[0]);
+                jsonData = [];
+                for(var i in tempData) {
+                    jsonData.push(JSON.parse(tempData[i]));
+                }
+            }
+
+            for(var key in firstData){
                 var headMap = {};
                 headMap["field"] = key;
                 headMap["title"] = key;
                 column.push(headMap);
             }
-        } catch (e) {
-        }
+
+        }catch (e){}
 
         $("#bsData").bootstrapTable("destroy");
         $("#bsData").bootstrapTable({
