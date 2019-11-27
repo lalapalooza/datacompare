@@ -45,18 +45,20 @@ public class Launcher {
 
     public TableConfig doConfigTable(TableConfig table) {
         String sourceTable = table.getSourceTable();
-        String tableName = "";
-        String schema = "";
-        if (sourceTable.contains(".")) {
-            tableName = StringUtils.substringAfter(sourceTable, ".");
-            schema = StringUtils.substringBefore(sourceTable, ".");
+        if(StringUtils.isNotEmpty(sourceTable)) {
+            String tableName = "";
+            String schema = "";
+            if (sourceTable.contains(".")) {
+                tableName = StringUtils.substringAfter(sourceTable, ".");
+                schema = StringUtils.substringBefore(sourceTable, ".");
+            }
+            final String schemaFinal = schema;
+            final String tableNameFinal = tableName;
+            String timeColumn = epConfig.stream().filter(ep -> schemaFinal.equalsIgnoreCase(ep.getHisDbName())
+                    && tableNameFinal.equalsIgnoreCase(ep.getHisTbName())).findFirst()
+                    .map(EtlHistablePartitionsConfiguration::getHisTbPartitionColumnName).orElse("");
+            table.setPartitionColumn(timeColumn);
         }
-        final String schemaFinal = schema;
-        final String tableNameFinal = tableName;
-        String timeColumn = epConfig.stream().filter(ep -> schemaFinal.equalsIgnoreCase(ep.getHisDbName())
-                && tableNameFinal.equalsIgnoreCase(ep.getHisTbName())).findFirst()
-                .map(EtlHistablePartitionsConfiguration::getHisTbPartitionColumnName).orElse("");
-        table.setPartitionColumn(timeColumn);
         // 增加全量/增量/区间的判断
         /**
          * 默认有时间列的情况

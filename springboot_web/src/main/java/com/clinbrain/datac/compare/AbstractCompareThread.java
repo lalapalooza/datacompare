@@ -81,10 +81,10 @@ public abstract class AbstractCompareThread implements Runnable {
         Preconditions.checkNotNull(target, "确认目标连接源是否存在？");
 
         // mysql 获取元数据需要连接字符串带数据库
-        if (source.getUrl().startsWith("jdbc:mysql")) {
+        if (source.getUrl().startsWith("jdbc:mysql") && StringUtils.isNotEmpty(table.getSourceTable())) {
             source.setUrl(source.getUrl() + "/" + StringUtils.substringBefore(table.getSourceTable(), "."));
         }
-        if (target.getUrl().startsWith("jdbc:mysql")) {
+        if (target.getUrl().startsWith("jdbc:mysql") && StringUtils.isNotEmpty(table.getTargetTable())) {
             target.setUrl(target.getUrl() + "/" + StringUtils.substringBefore(table.getTargetTable(), "."));
         }
 

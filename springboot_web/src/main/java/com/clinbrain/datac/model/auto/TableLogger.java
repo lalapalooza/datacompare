@@ -28,14 +28,12 @@ public class TableLogger implements Serializable {
 
     private Integer status;
 
-    private String message;
-
     @Transient
     private TableConfig tableConfig;
 
     private static final long serialVersionUID = 1L;
 
-    public TableLogger(Integer id, String loggerFile, Integer tableId, String sourceBatch, String targetBatch, Date startDate, Date endDate, Date createDate, Integer status, String message) {
+    public TableLogger(Integer id, String loggerFile, Integer tableId, String sourceBatch, String targetBatch, Date startDate, Date endDate, Date createDate, Integer status) {
         this.id = id;
         this.loggerFile = loggerFile;
         this.tableId = tableId;
@@ -45,7 +43,6 @@ public class TableLogger implements Serializable {
         this.endDate = endDate;
         this.createDate = createDate;
         this.status = status;
-        this.message = message;
     }
 
     public TableLogger() {
@@ -122,14 +119,6 @@ public class TableLogger implements Serializable {
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message == null ? null : message.trim();
     }
 
     public TableConfig getTableConfig() {

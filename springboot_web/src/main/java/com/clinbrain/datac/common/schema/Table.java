@@ -99,10 +99,7 @@ public class Table implements Comparable<Table> {
         LOG.info("准备读取["+tableName+"] 元数据...");
         this.name = tableName;
         ResultSet rs = null;
-        Connection conn = ds.getConnection();
-        DBObjectNameEscaper escaper =
-                new DBObjectNameEscaper(conn.getMetaData().getIdentifierQuoteString());
-        LOG.info("数据库关键字转义符："+escaper.escapeObjectName("key"));
+        Connection conn = null;
         TableInfo tableInfo = null;
         try {
             LOG.info("是否使用自定义sql："+StringUtils.isNotEmpty(StringUtils.trim(customSql)));
@@ -127,6 +124,10 @@ public class Table implements Comparable<Table> {
                 query = queryAll = queryCount = customSql;
                 LOG.info("使用自定义sql定义查询："+customSql);
             } else {
+                conn = ds.getConnection();
+                DBObjectNameEscaper escaper =
+                        new DBObjectNameEscaper(conn.getMetaData().getIdentifierQuoteString());
+                LOG.info("数据库关键字转义符："+escaper.escapeObjectName("key"));
                 DatabaseMetaData metaData = conn.getMetaData();
                 if (tableName.contains(".")) {
                     schema = StringUtils.substringBefore(tableName, ".");
@@ -226,7 +227,7 @@ public class Table implements Comparable<Table> {
             if (rs != null) {
                 rs.close();
             }
-            if (conn != null) {
+            if(conn != null) {
                 conn.close();
             }
         }

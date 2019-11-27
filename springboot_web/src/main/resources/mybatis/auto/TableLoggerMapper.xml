@@ -357,7 +357,7 @@
         status = #{status,jdbcType=INTEGER},
       </if>
       <if test="message != null">
-        message = #{message,jdbcType=VARCHAR},
+        message = #{message,jdbcType=LONGVARCHAR},
       </if>
       <if test="sourceData != null">
         source_data = #{sourceData,jdbcType=LONGVARCHAR},
