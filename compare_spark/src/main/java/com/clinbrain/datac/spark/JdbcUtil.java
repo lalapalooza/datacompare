@@ -10,13 +10,10 @@ import cn.hutool.setting.Setting;
  */
 public class JdbcUtil {
 
-    private static Setting setting;
+    private static Setting SETTING =  new Setting("db.setting");
 
-    static {
-        setting = new Setting("db.setting");
-    }
 
-    public static synchronized Connection connect(String driverClassName,
+    private static synchronized Connection connect(String driverClassName,
                                                   String url, String user, String pass) {
         try {
             Class.forName(driverClassName);
@@ -28,8 +25,8 @@ public class JdbcUtil {
     }
 
     public static synchronized Connection getConnect() {
-        return connect(setting.getStr("driver"), setting.getStr("url"),
-                setting.getStr("user"), setting.getStr("pass"));
+        return connect(SETTING.getStr("driver"), SETTING.getStr("url"),
+                SETTING.getStr("user"), SETTING.getStr("pass"));
     }
 
 }

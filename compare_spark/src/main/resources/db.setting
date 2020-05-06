@@ -1,4 +1,4 @@
-## db.setting文件
+## db.setting文件， 这里必须使用ip，因为spark jar文件在hadoop机器上
 url = jdbc:mysql://192.168.6.92:3306/data-config?useSSL=false
 user = root
 pass = root
